@@ -60,6 +60,7 @@ You can use the following arguments with `otelcol.connector.servicegraph`:
 | --------------------------- | ---------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------- |
 | `cache_loop`                | `duration`       | Configures how often to delete series which haven't been updated.           | `"1m"`                                                                                                                       | no       |
 | `database_name_attribute`   | `string`         | The attribute name used to identify the database name from span attributes. | `"db.name"`                                                                                                                  | no       |
+| `database_name_attributes`  | `list(string)`   | The list of attribute names used to identify the database name from span attributes.     | `["db.name"]`  | no
 | `dimensions`                | `list(string)`   | A list of dimensions to add with the default dimensions.                    | `[]`                                                                                                                         | no       |
 | `latency_histogram_buckets` | `list(duration)` | Buckets for latency histogram metrics.                                      | `["2ms", "4ms", "6ms", "8ms", "10ms", "50ms", "100ms", "200ms", "400ms", "800ms", "1s", "1400ms", "2s", "5s", "10s", "15s"]` | no       |
 | `metrics_flush_interval`    | `duration`       | The interval at which metrics are flushed to downstream components.         | `"60s"`                                                                                                                      | no       |
@@ -107,6 +108,8 @@ Additional labels can be included using the `dimensions` configuration option:
 * Firstly the resource attributes will be searched. If the attribute isn't found, the span attributes will be searched.
 
 When `metrics_flush_interval` is set to `0s`, metrics will be flushed on every received batch of traces.
+
+The attributes in `database_name_attributes` are tried in order, selecting the first match.
 
 [Span Kind]: https://opentelemetry.io/docs/concepts/signals/traces/#span-kind
 
